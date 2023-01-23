@@ -109,7 +109,7 @@ double  fastPower(double x, long int N)
   while(N > 0)
     { 
       if(N%2) pow = factor*pow ; // Update pow 
-      N = N/2;
+      N = N - 1; // THIS IS A WRONG LINE FIX IT    
       // Update factor by squaring to give the correct result incriment
     }
   return pow;
