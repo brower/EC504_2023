@@ -1,0 +1,10 @@
+plot "CompareTiming.txt"  using ($1):(log($3)) with lines
+replot "CompareTiming.txt"  using ($1):(log($2)) with lines
+ replot "CompareTiming.txt"  using ($1):(log($4)) with lines
+ replot "CompareTiming.txt"  using ($1):(log($5)) with lines
+ set output "ComparePower.eps"
+ set term postscript color
+set term x11
+ 
+
+
