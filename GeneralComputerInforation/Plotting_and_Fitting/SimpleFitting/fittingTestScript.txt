@@ -1,0 +1,9 @@
+# simple fitting script
+plot "Sorted100.txt"
+f(x) = a + b*x + c*x*x
+fit f(x) "Sorted100.txt" via a,b,c 
+replot f(x) 
+set term postscript color
+set outpu "SillyFit.eps"
+replot
+set term x11

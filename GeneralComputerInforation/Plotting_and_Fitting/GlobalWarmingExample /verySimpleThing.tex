@@ -1,0 +1,26 @@
+ # define funtion
+f(x) = a + b*x + c*x*x  
+
+ #fit frist collumns 
+fit f(x) "Complete_TAVG_summary.txt" via a,b,c
+
+#fit frist collumns 
+fit f(x) "Complete_TAVG_summary.txt" using 4:5  via a,b,c  
+
+#restricted with error bars
+plot [1900:2021] "Complete_TAVG_summary.txt" using 1:2:3 with errorbars
+
+#name out file
+set output ''MyPlot.eps''
+
+#set out to postscript 
+set terminal postscript color
+
+#set back to your default output.
+set term x11
+
+# use gnuplot script
+load ''plotit''
+
+
+

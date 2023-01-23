@@ -1,0 +1,10 @@
+plot  'Complete_TAVG_summary.txt' using 1:4:5 w errorbars
+
+
+f11(x) = c0 + c1*x + c2*x**2 + c3*x**3+ c4*x**4 + c5*x**5
+#+ c6*x**6 + c7*x**7 + c8*x**8 + c9*x**9 + c10*x**10 + c11*x**11
+
+fit f11(x) "Complete_TAVG_summary.txt" u 1:4 via  c0,c1,c2,c3,c4, c5
+#,c6,c7,c8,c9, c10,c11
+
+replot f11(x)

@@ -1,0 +1,25 @@
+f8(x)=a0+a1*cos(x*w)+b1*sin(x*w) +a2*cos(2*x*w)+b2*sin(2*x*w) +a3*cos(3*x*w)+b3*sin(3*x*w)+a4*cos(4*x*w)+b4*sin(4*x*w) +a5*cos(5*x*w)+b5*sin(5*x*w)+a6*cos(6*x*w)+b6*sin(6*x*w)+a7*cos(7*x*w)+b7*sin(7*x*w)+a8*cos(8*x*w)+b8*sin(8*x*w)
+
+w =0.01
+
+fit f8(x) 'Complete_TAVG_summary.txt' using 1:4 via w, a0,a1,b1 ,a2,b2 ,a3,b3,a4,b4 ,a5,b5,a6,b6,a7,b7,a8,b8
+
+plot  'Complete_TAVG_summary.txt' using 1:4:5 w errorbars
+replot f8(x)
+
+f11(x) = c0 + c1*x + c2*x**2 + c3*x**3+ c4*x**4 + c5*x**5
+#+ c6*x**6 + c7*x**7 + c8*x**8 + c9*x**9 + c10*x**10 + c11*x**11
+
+fit f11(x) "Complete_TAVG_summary.txt" u 1:4 via  c0,c1,c2,c3,c4, c5
+#,c6,c7,c8,c9, c10,c11
+
+replot f11(x)
+
+set output "ThisPlot.eps"
+set terminal postscript color
+
+replot
+
+set term x11
+
+
