@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
   cout << "Bisection " << find_index_bisection << " vs Dictionary " <<  find_index_dictionary << endl;
   if(find_index_dictionary !=-1)
     {
-      cout << "Value found = "<<A[find_index_dictionary] << " for  key = " <<  key[0]<< endl;
+      cout << "Value found = "<<A[find_index_dictionary] << " for  key = " <<  key[k]<< endl;
     }
   cout << "Bisection: Time =  " <<  difference_in_seconds_bisection << " OpCount = "  << OpCountBisection <<  endl;
   cout << "Dictionary: Time =  " <<  difference_in_seconds_dictionary << " OpCount =  "  << OpCountDictionary << endl;
@@ -90,12 +90,12 @@ int main(int argc, char *argv[])
  //End output 
     }
 
-#if 0   // For extra credit find each input file or even plot as fuction of size
+#if 0   // DO NOT UNCOMMENT THIS CODE FOR THIS ASSIGNENT
+        // In class we discuss how to plot average data with error bars. 
   cout << "\n For = " << NoOfKeys << "keys: Mean values are " << endl;
 
   cout << "Bisection: Mean Time =  " <<  difference_in_seconds_bisection << " Mean OpCount = "  << OpCountBisection <<  endl;
   cout << "Dictionary: Mean Time =  " <<  difference_in_seconds_dictionary << "Mean  OpCount =  "  << OpCountDictionary << endl;
-
  #endif
   
   return 0;
