@@ -1,0 +1,4 @@
+
+ # Data File to collect swap count and there averages and errors for plotting 
+# N  Insertion   Mean  Error  |    Merge  Mean  Error |   Quick   Mean  Error |   Shell Sort  Mean  Error | 
+ 
