@@ -7,7 +7,6 @@
 #include <new>
 #include "sorting.h"
 using namespace std;
-
 #define StandIO 1
 
 // Debugging routine: (Good Software would put this in seperate test.h)
@@ -21,21 +20,31 @@ int main()
 { 
   int N; // size of array
   int n_power  = 12;  // power of 2 for size. 
-  int Ncases = 8;  // run over a set of re_ordering lists
+  int Ntrials = 1;  // run over a set of re_ordering lists
   int *a, *a_save, *a_tmp;
   ofstream myData;
-
-  // Here is how  you allocate a file and write to it in C++.
-  myData.open ("PlotData.txt");
-  myData << "\n # Data File to collect swap count and there averages and errors for plotting \n";
-  myData << "# N  Insertion   Mean  Error  |    Merge  Mean  Error |   Quick   Mean  Error |   Shell Sort  Mean  Error | \n ";
+  double MeanInsert, MeanMerge, MeanQuick, MeanShell;
+  double rmsInsert, rmsMerge, rmsQuick, rmsShell;
+  double InvCases;
   
+ 
+  // Here is how  you allocate a file and write to it in C++.
+
+  FILE* cFile;
+  cFile = fopen ("Plotfile.txt","w+");
+ 
+  fprintf(cFile,"#                N               |     MeanInsert        rmsInsert     |      MeanMerge         rmsMerge     |     MeanQuck         rmsQuick      |     MeanShell        rmShell     |\n ");
+   
   srand(137); // fixes intial seed 
   // Put loop around N to make data for scaling
 
-  
+   
   for(int n = 0; n < n_power; n++) //loop over sizes = N for arrays
     {
+ 
+    MeanInsert = 0.0;  MeanMerge = 0.0; MeanQuick = 0; MeanShell = 0.0;
+    rmsInsert = 0.0;  rmsMerge = 0.0;  rmsQuick = 0.0;  rmsShell = 0.0;
+  
       N = 16*pow(2,n);  // note cast to int N
       // allocate arrays    
       a  = (int*)malloc(N * sizeof(int));
@@ -48,8 +57,12 @@ int main()
       cout <<"Evaluate Scaling of Sorting Algorithms N = "<< N << endl;
    
       
-      //  Can average over re-permuation of array of size N	 
-      for(int j = 0; j < Ncases; j++)
+      //  Can average over re-permuation of array of size N
+
+      
+      InvCases  = 1.0/(double)Ntrials;
+	 
+      for(int j = 0; j < Ntrials; j++)
 	{
 	  for(int i = 0;i<N;i++) a_save[i] = a[i]; // keep random array
 	  
@@ -59,6 +72,8 @@ int main()
 #if StandIO
 	  cout << "Case = " << j << "  insertionSort swapCount " << swapCount << endl;
 #endif
+
+
 	  
 	  //Test mergeSort
 	  swapCount = 0;
@@ -67,7 +82,10 @@ int main()
 	  
 #if StandIO
 	  cout << "Case = " << j << " Merge  swapCount " << swapCount << endl;
-#endif  
+#endif
+
+
+	  
 	  //Test quickSort
 	  swapCount = 0;
 	  for(int i = 0;i<N;i++) a[i] = a_save[i];
@@ -75,7 +93,9 @@ int main()
 #if StandIO
 	  
 	  cout << "Case = " << j << " Quick  swapCount " << swapCount << endl;
-#endif	  
+#endif
+
+	  
 	  //Test shellSort
 	  swapCount = 0;
 	  for(int i = 0;i<N;i++) a[i] = a_save[i];
@@ -84,6 +104,8 @@ int main()
 #if StandIO
 	  cout << "Case = " << j << " Shell Sort  swapCount " << swapCount << endl;
 #endif	  
+
+;
 	  
 	  //	  Get new permutation of random array.
 	  for(int i = 0;i<N;i++) a[i] = a_save[i];
@@ -91,13 +113,21 @@ int main()
 	  
 	} // end cases
       
+      rmsInsert  = sqrt(rmsInsert -  MeanInsert* MeanInsert);
+      rmsMerge  = sqrt(rmsMerge -  MeanMerge* MeanMerge);
+      rmsQuick  = sqrt(rmsQuick -  MeanQuick* MeanQuick);
+      rmsShell  = sqrt(rmsShell -  MeanShell* MeanShell);
+      
+      
+    fprintf(cFile,"%20.15d  %15.5e  %15.5e  %15.5e  %15.5e  %15.5e  %15.5e  %15.5e  %15.5e \n", N, MeanInsert,  rmsInsert, MeanMerge,  rmsMerge,  MeanQuick, rmsQuick,  MeanShell,  rmsShell );
+       
       free(a);
       free(a_save);
       free(a_tmp);
       
-    } // end array sizes N 
+    } // end array sizes N
   
-  myData.close();
+  fclose(cFile);
   
   return 0;
 }
